@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-rails-example-deployment
+  # Add namespace if deployment is supposed to be created in a specific namespace
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubernetes-rails-example
+  template:
+    metadata:
+      labels:
+        app: kubernetes-rails-example
+    spec:
+      containers:
+      - name: rails-app
+        image: kubernetes-rails-example:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
+        env:
+          - name: SECRET_KEY_BASE
+            valueFrom:
+              secretKeyRef:
+                name: kubernetes-rails-example-secrets
+                key: secret-key-base

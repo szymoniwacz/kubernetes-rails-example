@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: kubernetes-rails-example-service
+spec:
+  selector:
+    app: kubernetes-rails-example
+  type: NodePort
+  #type: LoadBalancer
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 3000
